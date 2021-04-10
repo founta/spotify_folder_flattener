@@ -1,0 +1,17 @@
+[Unit]
+Description=Persistent spotify folder flattener
+After=multi-user.target
+
+[Service]
+User={SERVICE_USER}
+Type=simple
+
+Environment="XAUTHORITY={XAUTH}" "DISPLAY={DISPLAY}"
+PassEnvironment=XAUTHORITY DISPLAY
+
+ExecStart={PYTHON_INTERPRETER} {PYTHON_SCRIPT} --persist
+RestartSec=5
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

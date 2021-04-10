@@ -7,8 +7,3 @@ def update_path():
 
 def update():
   update_path()
-  
-  from inc import constants
-  constants.config_json = Path("../")/constants.config_json
-  constants.auth_json = Path("../")/constants.auth_json
-  constants.cookie_json = Path("../")/constants.cookie_json

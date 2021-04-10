@@ -11,8 +11,8 @@ from inc import constants
 
 def auth_retrieval_target(stop, shared_dict):
   options = webdriver.ChromeOptions()
-  options.binary_location = "/opt/brave.com/brave/brave"
-  chrome_driver_binary = "/usr/bin/chromedriver"
+  options.binary_location = constants.chrome
+  chrome_driver_binary = constants.chrome_driver
   driver = webdriver.Chrome(chrome_driver_binary, options=options)
 
   driver.get('https://open.spotify.com')
