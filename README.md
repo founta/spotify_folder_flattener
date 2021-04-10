@@ -6,6 +6,9 @@
 
 # Installation
 
+## Install python prerequisites
+`poetry install`
+
 ## Update configuration
 Set the path to your chrome-based browser executable and the driver in `inc/constants.py`
 
