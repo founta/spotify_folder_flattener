@@ -20,8 +20,7 @@ This is for getting a user's playlist folder structure (have to hit an endpoint 
 
 ## Get an initial authentication token from Spotify
 This is for creating and deleting playlists
-- make a spotify application on their site
-  - `https://developer.spotify.com/dashboard/`
+- make a spotify application on their site (https://developer.spotify.com/dashboard/)
 - set redirect uri to "http://localhost"
 - put client id and secret in config/config.json
   - also put the desired username in config.json
@@ -30,7 +29,7 @@ This is for creating and deleting playlists
   - something like `https://accounts.spotify.com/login?continue=https%3A%2F%2Faccounts.spotify.com%2Fauthorize%3Fclient_id.....`
   - login on that page
 - It will redirect to localhost, copy the code out of the URL
-  - url will look like `http://localhost/?code=xxxxxxx`
+  - url will look like `http://localhost/?code=THECODE`
   - copy the code part
 - run `poetry run python3 utils/get_auth_token.py --code=THECODE`
   - where THECODE is the code copied earlier
