@@ -7,8 +7,6 @@ import time
 from folder_reader import FolderReader
 from spotify_utils import *
 
-token_json = "token_info.json"
-
 
 class FolderFlattener():
   def __init__(self, cid, secret, user):
@@ -17,7 +15,7 @@ class FolderFlattener():
     self.secret = secret
     self.user = user
     
-    self.auth, self.expire, self.refresh, self.tok_type = get_cached_auth(token_json)
+    self.auth, self.expire, self.refresh, self.tok_type = get_cached_auth()
     
     self.encoded_id_secret = get_encoded_client_secret(cid, secret)
     
@@ -27,7 +25,7 @@ class FolderFlattener():
     try:
       ret = func(*args, **kwargs)
     except requests.exceptions.HTTPError:
-      self.auth = refresh_auth(self.refresh, self.encoded_id_secret, token_json)
+      self.auth = refresh_auth(self.refresh, self.encoded_id_secret)
       ret = func(*args, **kwargs)
     return ret
   

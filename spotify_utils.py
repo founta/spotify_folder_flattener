@@ -3,10 +3,12 @@ import base64
 import json
 import time
 
+import constants
+
 token_url = "https://accounts.spotify.com/api/token"
 
 def read_config():
-  with open("config.json","r") as f:
+  with open(constants.config_json,"r") as f:
     config_dict = json.load(f)
 
   cid = config_dict["id"]
@@ -19,7 +21,7 @@ def get_encoded_client_secret(client, secret):
   encoded_id_secret = base64.b64encode((client+':'+secret).encode('ascii'))
   return encoded_id_secret.decode("ascii")
 
-def refresh_auth(refresh_token, client_secret, json_fname):
+def refresh_auth(refresh_token, client_secret):
   url = "https://accounts.spotify.com/api/token"
   
   headers={"authorization":"Basic " + client_secret}
@@ -30,7 +32,7 @@ def refresh_auth(refresh_token, client_secret, json_fname):
   r.raise_for_status()
   
   #read in current cached config
-  auth, expire, refresh, tok_type = get_cached_auth(json_fname)
+  auth, expire, refresh, tok_type = get_cached_auth()
   
   #read response
   r_json = json.loads(r.text)
@@ -40,15 +42,15 @@ def refresh_auth(refresh_token, client_secret, json_fname):
     refresh = refresh_temp
   
   #update cached auth info
-  write_cached_auth(auth, expires, tok_type, refresh, json_fname)
+  write_cached_auth(auth, expires, tok_type, refresh)
   
   return auth
 
 
 
 #auth, expire, refresh, tok_type
-def get_cached_auth(json_fname):
-  with open(json_fname, "r") as f:
+def get_cached_auth():
+  with open(constants.auth_json, "r") as f:
     auth_dict = json.load(f)
   
   return (auth_dict["auth"]["value"], auth_dict["auth"]["expires"], auth_dict["refresh"], auth_dict["type"])
@@ -62,7 +64,7 @@ def read_auth_response(r_json):
   
   return auth, tok_type, expires, refresh
 
-def write_cached_auth(auth, expires, tok_type, refresh, json_fname):
+def write_cached_auth(auth, expires, tok_type, refresh):
   auth_dict = {}
   auth_dict["auth"] = {}
   auth_dict["auth"]["value"] = auth
@@ -70,5 +72,5 @@ def write_cached_auth(auth, expires, tok_type, refresh, json_fname):
   auth_dict["refresh"] = refresh
   auth_dict["type"] = tok_type
   
-  with open(json_fname, "w") as f:
+  with open(constants.auth_json, "w") as f:
     json.dump(auth_dict, f, indent=2)

@@ -7,6 +7,8 @@ import queue
 import multiprocessing
 import ctypes
 
+import constants
+
 def auth_retrieval_target(stop, shared_dict):
   options = webdriver.ChromeOptions()
   options.binary_location = "/opt/brave.com/brave/brave"
@@ -14,9 +16,12 @@ def auth_retrieval_target(stop, shared_dict):
   driver = webdriver.Chrome(chrome_driver_binary, options=options)
 
   driver.get('https://open.spotify.com')
-  driver.add_cookie({'domain': '.spotify.com', 'httpOnly': False, 'name': 'sp_t', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'xxxx'})
-  driver.add_cookie({'domain': '.spotify.com', 'httpOnly': False, 'name': 'sp_key', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'xxxx'})
-  driver.add_cookie({'domain': '.spotify.com', 'httpOnly': True, 'name': 'sp_dc', 'path': '/', 'sameSite': 'None', 'secure': True, 'value': 'xxxx'})
+  
+  with open(constants.cookie_json, "r") as f:
+    cookies = json.load(f)["cookies"]
+  
+  for cookie in cookies:
+    driver.add_cookie(cookie)
 
   while not stop.is_set():
     reqs = driver.requests.copy()

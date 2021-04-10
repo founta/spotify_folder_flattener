@@ -5,6 +5,7 @@ import json
 import argparse
 
 from spotify_utils import write_cached_auth, read_auth_response
+import constants
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--code", type=str, help="The code you get out of performing initial steps")
@@ -16,7 +17,7 @@ code = args.code
 scope = args.scope
 redirect = args.redirect_url
 
-with open("config.json","r") as f:
+with open(constants.config_json, "r") as f:
   config_dict = json.load(f)
 
 cid = config_dict["id"]
@@ -51,4 +52,4 @@ print(r_json)
 auth, tok_type, expires, refresh = read_auth_response(r_json)
 
 #save the auth info to disk
-write_cached_auth(auth, expires, tok_type, refresh, "token_info.json")
+write_cached_auth(auth, expires, tok_type, refresh)
