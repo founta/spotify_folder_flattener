@@ -4,7 +4,7 @@ import json
 
 import time
 
-from selenium_auth_getter import WebAuthGetter
+from .selenium_auth_getter import WebAuthGetter
 
 class FolderReader():
   def __init__(self, user):

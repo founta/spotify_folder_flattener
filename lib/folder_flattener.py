@@ -4,8 +4,8 @@ import json
 
 import time
 
-from folder_reader import FolderReader
-from spotify_utils import *
+from .folder_reader import FolderReader
+from .spotify_utils import *
 
 
 class FolderFlattener():
@@ -206,17 +206,3 @@ class FolderFlattener():
             tracks_to_add.append(uri)
         self.manipulate_tracks_in_playlist(flattened_id,tracks_to_add,delete=False)
         self.manipulate_tracks_in_playlist(flattened_id,tracks_to_delete,delete=True)
-
-if __name__ == "__main__":
-  cid, secret, user = read_config()
-  
-  folder_flattener = FolderFlattener(cid,secret,user)
-  
-  #print(folder_flattener.get_playlists(0))
-  #print(folder_flattener.check_for_playlist("alterlnative"))
-  #print(folder_flattener.get_user_id())
-  #print(folder_flattener.create_playlist(folder_flattener.watermark + "test"))
-  folder_flattener.flatten_folders()
-  folder_flattener.stop()
-#  print(folder_flattener.get_track_uris("4GeOxfkus4918LolQq3822", 2,1))
-#  print(folder_flattener.get_all_track_uris_in_playlist("4GeOxfkus4918LolQq3822"))

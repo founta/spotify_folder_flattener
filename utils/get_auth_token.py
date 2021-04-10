@@ -4,8 +4,12 @@ import json
 
 import argparse
 
-from spotify_utils import write_cached_auth, read_auth_response
-import constants
+
+from common import update
+update()
+
+from inc import constants
+from lib.spotify_utils import write_cached_auth, read_auth_response
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--code", type=str, help="The code you get out of performing initial steps")

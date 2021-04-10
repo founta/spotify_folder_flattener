@@ -3,7 +3,10 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 import json
 
-import constants
+from common import update
+update()
+
+from inc import constants
 
 options = webdriver.ChromeOptions()
 options.binary_location = "/opt/brave.com/brave/brave"

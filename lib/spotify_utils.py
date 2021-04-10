@@ -3,7 +3,7 @@ import base64
 import json
 import time
 
-import constants
+from inc import constants
 
 token_url = "https://accounts.spotify.com/api/token"
 

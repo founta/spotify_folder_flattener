@@ -7,7 +7,7 @@ import queue
 import multiprocessing
 import ctypes
 
-import constants
+from inc import constants
 
 def auth_retrieval_target(stop, shared_dict):
   options = webdriver.ChromeOptions()

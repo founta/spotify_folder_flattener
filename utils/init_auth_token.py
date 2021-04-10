@@ -1,7 +1,10 @@
 import requests
 import argparse
 
-from spotify_utils import *
+from common import update
+update()
+
+from lib.spotify_utils import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--scope", type=str, default="playlist-read-private playlist-modify-public playlist-modify-private playlist-read-collaborative", help="The scopes we want out of the auth token")
